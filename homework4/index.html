@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/vega@5.22.1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.2.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.20.8"></script>
+</head>
+<body>
+    <div class="pure-g">
+        <div class="pure-u-1-3">
+          <div class="description description-left">
+            <h2>African Economy</h2>
+          </div>
+        </div>
+        <div class="pure-u-1-3">
+          <div id="vis1" class="vis-container"></div>
+        </div>
+        <div class="pure-u-1-3" style="width: 31.5%;">
+          <div id="vis2" class="vis-container"></div>
+        </div>
+  
+      </div>
+  <script>
+    const scatterplot = {
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 500,
+    "height": 400,
+    "title": "Population and GDP in Different African Countries",
+    "description": "A scatterplot showing population and GDP in Afircan countries",
+    "data": {
+      "url": "https://raw.githubusercontent.com/jesslaa/FIT3179/main/homework4/Data_Africa.csv"
+    },
+    "params":[
+    {
+      "name": "continent_highlight",
+      "select": {"type": "point", "fields": ["Continent"]},
+      "bind": "legend"
+      }],
+    "mark": "point",
+    "encoding": {
+      "x": {
+        "field": "Population ",
+        "type": "quantitative",
+        "axis": {"tickCount": 10},
+        "scale": {"type": "log", "domain": [1, 10000000000]}
+      },
+      "y": {
+        "field": "GDP in Million (USD)",
+        "type": "quantitative",
+        "axis": {"tickCount": 7},
+        "scale": {"type": "log", "domain": [1, 10000000]}
+      },
+      "color": {"field": "Continent", "type": "nominal"},
+      "opacity": {
+        "condition": {"param": "continent_highlight", "value": 0.9},
+        "value": 0.1
+      },
+      "tooltip": [
+        {"field": "Country", "type": "nominal"},
+        {"field": "Continent", "type": "nominal"},
+        {"field": "Population ", "type": "quantitative", "format": ","},
+        {"field": "GDP (USD)", "type": "quantitative", "format": ","},
+        {
+          "field": "GDP in Million (USD)",
+          "type": "quantitative",
+          "format": ".2f"
+        }
+      ]
+    }
+  };
+    const map = {
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "GDP in African countries in 2022",
+  "width": 500,
+  "height": 400,
+  "autosize": { "type": "fit"},
+  "projection": {"type": "mercator"},
+  "data": {
+    "url": "https://raw.githubusercontent.com/jesslaa/FIT3179/main/homework3/ne_110m-3.json",
+    "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
+  },
+  "layer": [
+    {
+      "transform": [
+        {
+          "calculate": "'Data is not available in ' + datum.properties.NAME",
+          "as": "note"
+        }
+      ],
+      "mark": {"type": "geoshape", "fill": "lightgray", "stroke": "white"},
+      "encoding": {"tooltip": {"field": "note"}}
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/jesslaa/FIT3179/main/homework3/ne_50m_ocean.json",
+        "format": {"type": "topojson", "feature": "ne_50m_ocean"}
+      },
+      "mark": {"type": "geoshape", "fill": "skyblue"}
+    },
+    {
+      "transform": [
+        {
+          "lookup": "properties.NAME",
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/jesslaa/FIT3179/main/homework3/Data_Africa.csv"
+            },
+            "key": "Country",
+            "fields": ["GDP(USD)", "Population"]
+          }
+        },
+        {
+          "calculate": "datum['GDP(USD)']/(datum.Population+1)",
+          "as": "GDP Per Capita"
+        }
+      ],
+      "mark": {"type": "geoshape", "stroke": "white"},
+      "encoding": {
+        "color": {"field": "GDP Per Capita", "type": "quantitative"},
+        "tooltip": [
+          {"field": "properties.NAME", "type": "nominal", "title": "Country"},
+          {"field": "GDP(USD)", "type": "quantitative"},
+          {"field": "GDP Per Capita", "type": "quantitative", "format": ".2f"}
+        ]
+      }
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/jesslaa/FIT3179/main/homework3/ne_110m-3.json",
+        "format": {"type": "topojson", "feature": "ne_110m_graticules_30"}
+      },
+      "mark": {"type": "geoshape", "fill": null, "stroke": "lightgray"}
+    },
+    {
+      "transform": [
+        {
+          "lookup": "properties.NAME",
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/jesslaa/FIT3179/main/homework3/countryInfo.csv"
+            },
+            "key": "name",
+            "fields": ["latitude", "longitude"]
+          }
+        }
+      ],
+      "mark": {"type": "text"},
+      "encoding": {
+        "longitude": {"field": "longitude", "type": "quantitative"},
+        "latitude": {"field": "latitude", "type": "quantitative"},
+        "text": {"field": "properties.NAME", "type": "nominal"},
+        "opacity": {
+          "condition": {
+            "test": "datum['properties.NAME'] == 'Botswana' || datum['properties.NAME'] == 'South Africa' || datum['properties.NAME'] == 'Gabon' || datum['properties.NAME'] == 'Libya'",
+            "value": 1
+          },
+          "value": 0
+        }
+      }
+    }
+  ],
+  "config": {}
+};
+    vegaEmbed("#vis1", map, {mode: "vega-lite"}).then(console.log).catch(console.warn);
+    vegaEmbed("#vis2", scatterplot, {mode: "vega-lite"}).then(console.log).catch(console.warn);
+  </script>
+</body>
+</html>
