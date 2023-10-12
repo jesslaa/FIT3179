@@ -1,0 +1,32 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "World Billionnaires by Regions",
+    "data": {"url": "https://raw.githubusercontent.com/jesslaa/FIT3179/main/vis2/billionaires.csv"},
+    "mark": "bar",
+    "encoding": {
+      "x": {
+        "field": "Location Region",
+        "type": "ordinal",
+        "title": "Location"
+      },
+      "y": {
+        "aggregate": "count",
+        "type": "quantitative",
+        "title": "Number of billionnaires"
+      },
+      "color": {
+        "field": "Demographics Gender",
+        "type": "nominal",
+        "scale": {
+          "domain": ["male", "female"],
+          "range": ["#9467bd", "#e7ba52"]
+        },
+        "title": "Gender"
+      },
+      "tooltip": [
+        {"field": "Location Region", "type": "nominal"},
+        {"field": "__count", "type": "quantitative", "title": "Number"}
+      ]
+    }
+  }
+  
