@@ -1,0 +1,34 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data": {
+      "url": "https://raw.githubusercontent.com/jesslaa/FIT3179/main/vis2/data/billionaires.csv",
+      "format": {"type": "csv"}
+    },
+    "transform": [
+      {
+        "aggregate": [{"op": "count", "field": "Name", "as": "count"}],
+        "groupby": ["Year"]
+      }
+    ],
+    "mark": {
+        "type": "line",
+        "point": {
+          "filled": false,
+          "fill": "white"
+        }
+      },
+    "encoding": {
+      "x": {
+        "field": "Year",
+        "type": "ordinal",
+        "title": "Year"
+      },
+      "y": {
+        "field": "count",
+        "type": "quantitative",
+        "title": "Number of Billionaires"
+      }
+    },
+    "title": "Trend of Number of Billionaires Over Years"
+  }
+  
