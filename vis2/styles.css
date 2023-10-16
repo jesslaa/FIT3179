@@ -5,15 +5,15 @@ body {
     padding: 0;
 }
 .background {
-    width: 81%;
+    width: 90.5%;
     margin: 2em auto;
-    background-color: #beddfb94;
+    background-color: #bbd2e894;
     padding: 1%;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .visualisation {
-    width: 80%;
+    width: 90%;
     margin: 2em auto;
     background-color: #ffffff;
     padding: 2em;
@@ -22,6 +22,10 @@ body {
 
 
 h1 {
+    text-align: center;
+    margin-bottom: 2em;
+}
+h2 {
     text-align: center;
     margin-bottom: 2em;
 }
