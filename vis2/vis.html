@@ -9,6 +9,7 @@
 </head>
 
 <body>
+    <div class="background">
     <div class="visualisation">
         <h1>A Glimpse into the World of Billionaires</h1>
         <p>In today's interconnected global landscape, the world economy is an intricate tapestry of trade, investment, and commerce.
@@ -34,7 +35,23 @@
         <div class="chart4">chart placeholder</div>
         <div class="text5"></div>
         <div class="chart5">chart placeholder</div>
-
+    </div>
+<script>
+            const spec1 = "vegalite/gdp_choropleth.vg.json";
+            vegaEmbed('.chart1', spec1);
+        
+            const spec2 = "stacked_bar.vg.json";
+            vegaEmbed('#chart2', spec2);
+        
+            const spec3 = "pie.vg.json";
+            vegaEmbed('#chart3', spec3);
+        
+            // const spec4 = {};
+            // vegaEmbed('#chart4', spec4);
+        
+            // const spec5 = {};
+            // vegaEmbed('#chart5', spec5);
+        </script>
 </body>
 
 </html>

@@ -1,18 +1,18 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "title": "GDP for Each Countries in 2014",
+    "title": "Gross Domestic Product of Countries in 2014",
     "width": 800,
     "height": 400,
     "data": {
-      "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/3_choropleth_map/js/ne_110m_admin_0_countries.topojson",
+      "url": "https://raw.githubusercontent.com/jesslaa/FIT3179/main/vis2/data/ne_110m_admin_0_countries.topojson",
       "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
     },
-    "projection": {"type": "equirectangular"},
+    "projection": {"type": "equalEarth"},
     "layer": [
       {
         "transform": [
           {
-            "calculate": "'Data is not available in ' + datum.properties.NAME",
+            "calculate": "'No available data in ' + datum.properties.NAME",
             "as": "note"
           }
         ],
@@ -21,14 +21,14 @@
       },
       {
         "data": {
-          "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/7_others/oceans.topojson",
+          "url": "https://raw.githubusercontent.com/jesslaa/FIT3179/main/vis2/data/oceans.topojson",
           "format": {"type": "topojson", "feature": "oceans"}
         },
-        "mark": {"type": "geoshape", "fill": "skyblue"}
+        "mark": {"type": "geoshape", "fill": "#95cdeb"}
       },
       {
         "data": {
-          "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/2_symbol_map/js/WorldMapWithGraticules.topojson",
+          "url": "https://raw.githubusercontent.com/jesslaa/FIT3179/main/vis2/data/WorldMapWithGraticules.topojson",
           "format": {"type": "topojson", "feature": "ne_110m_graticules_30"}
         },
         "mark": {"type": "geoshape", "fill": null, "stroke": "lightgray"}
@@ -39,7 +39,7 @@
             "lookup": "properties.NAME",
             "from": {
               "data": {
-                "url": "https://raw.githubusercontent.com/jesslaa/FIT3179/main/vis2/GDP2014.csv"
+                "url": "https://raw.githubusercontent.com/jesslaa/FIT3179/main/vis2/data/GDP2014.csv"
               },
               "key": "Country",
               "fields": ["GDP (in billion)"]
@@ -54,7 +54,7 @@
             "scale": {
               "type": "threshold",
               "domain": [1, 10, 100, 1000, 10000],
-              "scheme": "yellowgreen"
+              "scheme": "oranges"
             }
           },
           "tooltip": [
@@ -88,7 +88,7 @@
           "text": {"field": "properties.NAME", "type": "nominal"},
           "opacity": {
             "condition": {
-              "test": "datum['properties.NAME'] == 'China' || datum['properties.NAME'] == 'Brazil' || datum['properties.NAME'] == 'Australia' || datum['properties.NAME'] == 'United Kingdom' ||  datum['properties.NAME'] == 'United States of America'",
+              "test": "datum['properties.NAME'] == 'China' || datum['properties.NAME'] == 'Brazil' || datum['properties.NAME'] == 'South Africa' || datum['properties.NAME'] == 'Australia' || datum['properties.NAME'] == 'United Kingdom' ||  datum['properties.NAME'] == 'United States of America'",
               "value": 1
             },
             "value": 0

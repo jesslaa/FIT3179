@@ -1,8 +1,10 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "Number of Billionaires Over Years",
+    "width": 600,
+    "height": 400,
     "data": {
-      "url": "https://raw.githubusercontent.com/jesslaa/FIT3179/main/vis2/data/billionaires.csv",
-      "format": {"type": "csv"}
+      "url": "https://raw.githubusercontent.com/jesslaa/FIT3179/main/vis2/data/billionaires.csv"
     },
     "transform": [
       {
@@ -10,25 +12,44 @@
         "groupby": ["Year"]
       }
     ],
-    "mark": {
-        "type": "line",
-        "point": {
-          "filled": false,
-          "fill": "white"
+    "layer": [
+      {
+        "mark": {"type": "line", "point": {"filled": false, "fill": "white"}},
+        "encoding": {
+          "x": {
+            "field": "Year",
+            "type": "ordinal",
+            "title": "Year",
+            "axis": {"labelAngle": 0}
+          },
+          "y": {
+            "field": "count",
+            "type": "quantitative",
+            "title": "Number of Billionaires"
+          },
+          "tooltip": [
+            {"field": "Year", "type": "ordinal", "title": "Year"},
+            {"field": "count", "type": "quantitative", "title": "Number of Billionaires"}
+          ]
         }
       },
-    "encoding": {
-      "x": {
-        "field": "Year",
-        "type": "ordinal",
-        "title": "Year"
-      },
-      "y": {
-        "field": "count",
-        "type": "quantitative",
-        "title": "Number of Billionaires"
+      {
+        "mark": {
+          "type": "text",
+          "dy": -20
+        },
+        "encoding": {
+          "x": {
+            "field": "Year",
+            "type": "ordinal"
+          },
+          "y": {
+            "field": "count",
+            "type": "quantitative"
+          },
+          "text": {"field": "count", "type": "quantitative"}
+        }
       }
-    },
-    "title": "Trend of Number of Billionaires Over Years"
+    ]
   }
   

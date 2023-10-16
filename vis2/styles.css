@@ -4,14 +4,22 @@ body {
     margin: 0;
     padding: 0;
 }
+.background {
+    width: 81%;
+    margin: 2em auto;
+    background-color: #beddfb94;
+    padding: 1%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
-.poster {
+.visualisation {
     width: 80%;
     margin: 2em auto;
     background-color: #ffffff;
     padding: 2em;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
 
 h1 {
     text-align: center;
