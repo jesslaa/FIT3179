@@ -1,29 +1,29 @@
 {
-    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "title": "Billionaire Wealth by Type",
-    "data": {"url": "https://raw.githubusercontent.com/jesslaa/FIT3179/main/vis2/billionaires.csv"},
-    "transform": [
-      {
-        "aggregate": [
-          {"op": "count", "as": "count"},
-          {"op": "sum", "field": "Wealth Worth In Billions", "as": "totalWealth"}
-        ],
-        "groupby": ["Wealth Type"]
-      }
-    ],
-    "layer": [
-      {
-        "mark": {"type": "arc", "innerRadius": 0, "stroke": "#fff"},
-        "encoding": {
-          "theta": {"field": "count", "type": "quantitative", "stack": true},
-          "radius": {"field": "totalWealth", "scale": {"zero": true, "range": [0, 100]}, "type": "quantitative"},
-          "color": {"field": "Wealth Type", "type": "nominal", "legend": null},
-          "tooltip": [
-            {"field": "Wealth Type", "type": "nominal"},
-            {"field": "count", "type": "quantitative"},
-            {"field": "totalWealth", "type": "quantitative", "title": "Total Wealth Worth In Billions"}
-          ]
-        }
-      }
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Top 100 Billionaires in 2014 vs. Others",
+  "data": {
+    "url": "https://raw.githubusercontent.com/jesslaa/FIT3179/main/vis2/data/billionaires2014.csv"
+  },
+  "transform": [
+    {
+      "calculate": "if(datum.Rank <= 100, 'Top 100 Billionaires', 'Others')",
+      "as": "Category"
+    },
+    {
+      "aggregate": [
+        {"op": "sum", "field": "Wealth Worth In Billions", "as": "Total Wealth"}
+      ],
+      "groupby": ["Category"]
+    }
+  ],
+  "mark": "arc",
+  "encoding": {
+    "theta": {"field": "Total Wealth", "type": "quantitative", "stack": "normalize"},
+    "color": {"field": "Category", "type": "nominal", "legend": {"title": "Total Wealth of Billionaires"}},
+    "tooltip": [
+      {"field": "Category", "type": "nominal", "title": "Name"},
+      {"field": "Total Wealth", "type": "quantitative", "title": "Total Wealth in Billions (USD)"}
     ]
-  }
+  },
+  "view": {"stroke": null}
+}

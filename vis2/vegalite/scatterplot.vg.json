@@ -1,6 +1,6 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "title": "Seattle Weather, 2012-2015",
+    "title": "Wealth in Billions (USD) against Age",
     "data": {
       "url": "https://raw.githubusercontent.com/jesslaa/FIT3179/main/vis2/data/billionaires2014.csv"
     },
@@ -59,8 +59,11 @@
             },
             "value": "lightgray"
           },
-          "x": {"aggregate": "count"},
-          "y": {"title": "Location Region", "field": "Location Region","sort": "-x"}
+          "x": {"aggregate": "count", "title": "Number of Billionaires"},
+          "y": {"title": "Location Region", "field": "Location Region","sort": "-x"},
+          "tooltip":[
+            {"field": "__count", "type": "quantitative", "title": "Count of Billionaires"}
+          ]
         },
         "width": 600,
         "mark": "bar",
