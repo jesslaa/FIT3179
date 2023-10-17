@@ -1,7 +1,7 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": "Gross Domestic Product and the Number of Billionaires in 2014",
-  "width": 800,
+  "width": 1000,
   "height": 400,
   "data": {
     "url": "https://raw.githubusercontent.com/jesslaa/FIT3179/main/vis2/data/ne_110m_admin_0_countries.topojson",

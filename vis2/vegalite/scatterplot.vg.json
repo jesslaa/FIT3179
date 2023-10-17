@@ -1,7 +1,6 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "title": "Wealth in Billions (USD) against Age",
-    "width": 400,
     "data": {
         "url": "https://raw.githubusercontent.com/jesslaa/FIT3179/main/vis2/data/billionaires2014.csv"
     },
@@ -67,7 +66,7 @@
                     "type": "quantitative"
                 }
             },
-            "width": 600,
+            "width": 350,
             "height": 300,
             "mark": "point",
             "params": [
@@ -135,7 +134,7 @@
                     }
                 ]
             },
-            "width": 600,
+            "width": 350,
             "mark": "bar",
             "params": [
                 {
