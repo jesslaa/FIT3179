@@ -20,6 +20,17 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+.two-columns {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .two-columns > div {
+    flex: 1; 
+    box-sizing: border-box;
+    padding: 0 18px;
+  }
 
 h1 {
     text-align: center;
@@ -28,9 +39,6 @@ h1 {
 h2 {
     text-align: center;
     margin-bottom: 2em;
-}
-.vis-container {
-    width: 100%;
 }
 
 .description-left {
@@ -41,4 +49,8 @@ h2 {
     margin: 1em 0;
     border: 1px solid #e0e0e0;
     padding: 1em;
+}
+
+.chart1 {
+    width: 90%
 }

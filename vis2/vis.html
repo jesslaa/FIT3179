@@ -10,46 +10,65 @@
 
 <body>
     <div class="background">
-    <div class="visualisation">
-        <h1>A Glimpse into the World of Billionaires</h1>
-        <p>In today's interconnected global landscape, the world economy is an intricate tapestry of trade, investment, and commerce.
-            Within this vast expanse, a select group stands out: the billionaires. These individuals, through entrepreneurship, inheritance, or investments, have amassed fortunes that rival the GDPs of entire countries.
-            Now it is time to explore into their origins, industries, and influence, diving into their stories within the broader economic context.</p>
+        <div class="visualisation">
+            <h1>A Glimpse into the World of Billionaires</h1>
+            <p>In today's interconnected global landscape, the world economy is an intricate tapestry of trade,
+                investment, and commerce.
+                Within this vast expanse, a select group stands out: the billionaires. These individuals, through
+                entrepreneurship, inheritance, or investments, have amassed fortunes that rival the GDPs of entire
+                countries.
+                Now it is time to explore into their origins, industries, and influence, diving into their stories
+                within the broader economic context.</p>
+            <div>
+                <h2>How Many Billionaires are there in the World?</h2>
 
-        <h2>How Many Billionaires are there in the World?</h2>
-        <div class="chart-section">
-            <div class="text1"></div>
-            <div class="chart1">chart placeholder</div>
+                <div class="two-columns">
+                    <div>
+                        <h3>Overall Trend</h3>
+                        <p>The number of billionaires has been <b>steadily increasing</b> over the years. <br><br>Between 1996 and
+                            2014, there was a nearly <b>4-fold increase</b> in the number - from 423 to 1653. Now let's dive into the data for 2014 specifically. </p>
+                    </div>
+                    <div class="chart1">chart placeholder</div>
+                </div>
+                <div><br><br><br></div>
+                <div class="two-columns">
+                    <div>
+                        <h3>Wealth Disparity within Billionaires</h3>
+                        <p>The <b>top 100</b> billionaires held approximately <b>1/3</b> of the total wealth amongst those 1653 billionaires in 2014, showcasing a concentration of wealth within a small group. 
+                            <br><br>This significant contrast underscores the <b>disproportionate distribution of wealth</b> even among the world's richest individuals.</p>
+                    </div>
+                    <div class="chart3">chart placeholder</div>
+                </div>
+            </div>
+
+            <h2>Demographics of the Mysterious Billionaires in 2014</h2>
+            <div class="chart-section">
+                <div class="text2"></div>
+                <div class="chart2">chart placeholder</div>
+                <div class="text3"></div>
+                <div class="chart3">chart placeholder</div>
+                <div class="text5"></div>
+                <div class="chart5">chart placeholder</div>
+            </div>
+
+            <h2>How They Obtain their Wealth</h2>
+            <div class="text4"></div>
+            <div class="chart4">chart placeholder</div>
+
         </div>
-
-        <h2>Demographics of the Mysterious Billionaires in 2014</h2>
-        <div class="chart-section">
-            <div class="text2"></div>
-            <div class="chart2">chart placeholder</div>
-            <div class="text3"></div>
-            <div class="chart3">chart placeholder</div>
-            <div class="text5"></div>
-        <div class="chart5">chart placeholder</div>
-        </div>
-
-        <h2>How They Obtain their Wealth</h2>
-        <div class="text4"></div>
-        <div class="chart4">chart placeholder</div>
-        
-    </div>
-<script>
+        <script>
             const spec1 = "vegalite/gdp_choropleth.vg.json";
             vegaEmbed('.chart4', spec1);
-        
+
             const spec2 = "vegalite/stacked_bar.vg.json";
             vegaEmbed('.chart2', spec2);
-        
+
             const spec3 = "vegalite/pie.vg.json";
             vegaEmbed('.chart3', spec3);
-        
+
             const spec4 = "vegalite/line_chart.vg.json";
             vegaEmbed('.chart1', spec4);
-        
+
             const spec5 = "vegalite/scatterplot.vg.json";
             vegaEmbed('.chart5', spec5);
         </script>

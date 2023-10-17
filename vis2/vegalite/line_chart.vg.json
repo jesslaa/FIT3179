@@ -1,8 +1,8 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "title": "Number of Billionaires Over Years",
-    "width": 600,
-    "height": 400,
+    "width": 400,
+    "height": 200,
     "data": {
       "url": "https://raw.githubusercontent.com/jesslaa/FIT3179/main/vis2/data/billionaires.csv"
     },
@@ -36,8 +36,7 @@
       {
         "mark": {
           "type": "text",
-          "dy": -20,
-          "size": 13
+          "dy": -10
         },
         "encoding": {
           "x": {
