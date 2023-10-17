@@ -51,6 +51,7 @@
         "color": {
           "field": "GDP (in billion)",
           "type": "quantitative",
+          "title": "GDP (in billions of USD)",
           "scale": {
             "type": "threshold",
             "domain": [1, 10, 100, 1000, 10000],

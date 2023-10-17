@@ -1,6 +1,8 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": "World Billionnaires by Regions",
+  "width": 400,
+  "height": 250,
   "data": {"url": "https://raw.githubusercontent.com/jesslaa/FIT3179/main/vis2/data/billionaires2014.csv"},
   "mark": "bar",
   "encoding": {
@@ -12,7 +14,7 @@
     "x": {
       "aggregate": "count",
       "type": "quantitative",
-      "title": "Number of billionnaires"
+      "title": "Number of billionaires"
     },
     "color": {
       "field": "Demographics Gender",

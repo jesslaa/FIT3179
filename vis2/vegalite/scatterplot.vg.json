@@ -1,76 +1,153 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "title": "Wealth in Billions (USD) against Age",
+    "width": 400,
     "data": {
-      "url": "https://raw.githubusercontent.com/jesslaa/FIT3179/main/vis2/data/billionaires2014.csv"
+        "url": "https://raw.githubusercontent.com/jesslaa/FIT3179/main/vis2/data/billionaires2014.csv"
     },
     "vconcat": [
-      {
-        "transform": [
-          {"filter": "datum['Demographics Age'] > 0"},
-          {"filter": {"param": "click"}}
-        ],
-        "encoding": {
-          "color": {
-            "condition": {
-              "param": "brush",
-              "title": "Region",
-              "field": "Location Region",
-              "type": "nominal",
-              "scale": {
-                "domain": ["North America", "Europe", "Latin America", "East Asia", "Sub-Saharan Africa", "Middle East/North Africa", "South Asia"],
-                "range": ["#e7ba52", "#ffcade", "#9cc3f5", "#1f77b4", "#9467bd", "#f17950", "#ef53c1"]
-              }
+        {
+            "transform": [
+                {
+                    "filter": "datum['Demographics Age'] > 0"
+                },
+                {
+                    "filter": {
+                        "param": "click"
+                    }
+                }
+            ],
+            "encoding": {
+                "color": {
+                    "condition": {
+                        "param": "brush",
+                        "title": "Region",
+                        "field": "Location Region",
+                        "type": "nominal",
+                        "scale": {
+                            "domain": [
+                                "North America",
+                                "Europe",
+                                "Latin America",
+                                "East Asia",
+                                "Sub-Saharan Africa",
+                                "Middle East/North Africa",
+                                "South Asia"
+                            ],
+                            "range": [
+                                "#e7ba52",
+                                "#ffcade",
+                                "#9cc3f5",
+                                "#1f77b4",
+                                "#9467bd",
+                                "#f17950",
+                                "#ef53c1"
+                            ]
+                        }
+                    },
+                    "value": "lightgray"
+                },
+                "x": {
+                    "field": "Demographics Age",
+                    "type": "quantitative",
+                    "title": "Demographics Age",
+                    "axis": {
+                        "labelAngle": 0
+                    }
+                },
+                "y": {
+                    "title": "Wealth in Billions (USD)",
+                    "field": "Wealth Worth In Billions",
+                    "scale": {
+                        "domain": [
+                            0,
+                            80
+                        ]
+                    },
+                    "type": "quantitative"
+                }
             },
-            "value": "lightgray"
-          },
-          "x": {
-            "field": "Demographics Age",
-            "type": "quantitative",
-            "title": "Demographics Age",
-            "axis": {"labelAngle": 0}
-          },
-          "y": {
-            "title": "Wealth in Billions (USD)",
-            "field": "Wealth Worth In Billions",
-            "scale": {"domain": [0, 80]},
-            "type": "quantitative"
-          }
+            "width": 600,
+            "height": 300,
+            "mark": "point",
+            "params": [
+                {
+                    "name": "brush",
+                    "select": {
+                        "type": "interval",
+                        "encodings": [
+                            "x"
+                        ]
+                    }
+                }
+            ]
         },
-        "width": 600,
-        "height": 300,
-        "mark": "point",
-        "params": [{
-          "name": "brush",
-          "select": {"type": "interval", "encodings": ["x"]}
-        }]
-      },
-      {
-        "transform": [{"filter": {"param": "brush"}}],
-        "encoding": {
-          "color": {
-            "condition": {
-              "param": "click",
-              "field": "Location Region",
-              "scale": {
-                "domain": ["North America", "Europe", "Latin America", "East Asia", "Sub-Saharan Africa", "Middle East/North Africa", "South Asia"],
-                "range": ["#e7ba52", "#ffcade", "#9cc3f5", "#1f77b4", "#9467bd", "#f17950", "#ef53c1"]
-              }
+        {
+            "transform": [
+                {
+                    "filter": {
+                        "param": "brush"
+                    }
+                }
+            ],
+            "encoding": {
+                "color": {
+                    "condition": {
+                        "param": "click",
+                        "field": "Location Region",
+                        "scale": {
+                            "domain": [
+                                "North America",
+                                "Europe",
+                                "Latin America",
+                                "East Asia",
+                                "Sub-Saharan Africa",
+                                "Middle East/North Africa",
+                                "South Asia"
+                            ],
+                            "range": [
+                                "#e7ba52",
+                                "#ffcade",
+                                "#9cc3f5",
+                                "#1f77b4",
+                                "#9467bd",
+                                "#f17950",
+                                "#ef53c1"
+                            ]
+                        }
+                    },
+                    "value": "lightgray"
+                },
+                "x": {
+                    "aggregate": "count",
+                    "title": "Number of Billionaires"
+                },
+                "y": {
+                    "title": "Location Region",
+                    "field": "Location Region",
+                    "sort": "-x"
+                },
+                "tooltip": [
+                    {
+                        "field": "__count",
+                        "type": "quantitative",
+                        "title": "Count of Billionaires"
+                    }
+                ]
             },
-            "value": "lightgray"
-          },
-          "x": {"aggregate": "count", "title": "Number of Billionaires"},
-          "y": {"title": "Location Region", "field": "Location Region","sort": "-x"},
-          "tooltip":[
-            {"field": "__count", "type": "quantitative", "title": "Count of Billionaires"}
-          ]
-        },
-        "width": 600,
-        "mark": "bar",
-        "params": [{
-          "name": "click",
-          "select": {"type": "point", "encodings": ["color"]}
-        }]
-      }
+            "width": 600,
+            "mark": "bar",
+            "params": [
+                {
+                    "name": "click",
+                    "select": {
+                        "type": "point",
+                        "encodings": [
+                            "color"
+                        ]
+                    }
+                }
+            ]
+        }
     ]
 }
