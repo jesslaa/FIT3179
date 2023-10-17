@@ -1,100 +1,138 @@
 {
-    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "title": "Gross Domestic Product of Countries in 2014",
-    "width": 800,
-    "height": 400,
-    "data": {
-      "url": "https://raw.githubusercontent.com/jesslaa/FIT3179/main/vis2/data/ne_110m_admin_0_countries.topojson",
-      "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Gross Domestic Product and the Number of Billionaires in 2014",
+  "width": 800,
+  "height": 400,
+  "data": {
+    "url": "https://raw.githubusercontent.com/jesslaa/FIT3179/main/vis2/data/ne_110m_admin_0_countries.topojson",
+    "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
+  },
+  "projection": {"type": "equalEarth"},
+  "layer": [
+    {
+      "transform": [
+        {
+          "calculate": "'No available data in ' + datum.properties.NAME",
+          "as": "note"
+        }
+      ],
+      "mark": {"type": "geoshape", "fill": "lightgray", "stroke": "white"},
+      "encoding": {"tooltip": {"field": "note"}}
     },
-    "projection": {"type": "equalEarth"},
-    "layer": [
-      {
-        "transform": [
-          {
-            "calculate": "'No available data in ' + datum.properties.NAME",
-            "as": "note"
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/jesslaa/FIT3179/main/vis2/data/oceans.topojson",
+        "format": {"type": "topojson", "feature": "oceans"}
+      },
+      "mark": {"type": "geoshape", "fill": "#95cdeb"}
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/jesslaa/FIT3179/main/vis2/data/WorldMapWithGraticules.topojson",
+        "format": {"type": "topojson", "feature": "ne_110m_graticules_30"}
+      },
+      "mark": {"type": "geoshape", "fill": null, "stroke": "lightgray"}
+    },
+    {
+      "transform": [
+        {
+          "lookup": "properties.NAME",
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/jesslaa/FIT3179/main/vis2/data/GDP2014.csv"
+            },
+            "key": "Country",
+            "fields": ["GDP (in billion)"]
           }
-        ],
-        "mark": {"type": "geoshape", "fill": "lightgray", "stroke": "white"},
-        "encoding": {"tooltip": {"field": "note"}}
-      },
-      {
-        "data": {
-          "url": "https://raw.githubusercontent.com/jesslaa/FIT3179/main/vis2/data/oceans.topojson",
-          "format": {"type": "topojson", "feature": "oceans"}
-        },
-        "mark": {"type": "geoshape", "fill": "#95cdeb"}
-      },
-      {
-        "data": {
-          "url": "https://raw.githubusercontent.com/jesslaa/FIT3179/main/vis2/data/WorldMapWithGraticules.topojson",
-          "format": {"type": "topojson", "feature": "ne_110m_graticules_30"}
-        },
-        "mark": {"type": "geoshape", "fill": null, "stroke": "lightgray"}
-      },
-      {
-        "transform": [
-          {
-            "lookup": "properties.NAME",
-            "from": {
-              "data": {
-                "url": "https://raw.githubusercontent.com/jesslaa/FIT3179/main/vis2/data/GDP2014.csv"
-              },
-              "key": "Country",
-              "fields": ["GDP (in billion)"]
-            }
+        }
+      ],
+      "mark": {"type": "geoshape", "stroke": "white"},
+      "encoding": {
+        "color": {
+          "field": "GDP (in billion)",
+          "type": "quantitative",
+          "scale": {
+            "type": "threshold",
+            "domain": [1, 10, 100, 1000, 10000],
+            "scheme": "oranges"
           }
-        ],
-        "mark": {"type": "geoshape", "stroke": "white"},
-        "encoding": {
-          "color": {
+        },
+        "tooltip": [
+          {"field": "properties.NAME", "type": "nominal", "title": "Country"},
+          {
             "field": "GDP (in billion)",
             "type": "quantitative",
-            "scale": {
-              "type": "threshold",
-              "domain": [1, 10, 100, 1000, 10000],
-              "scheme": "oranges"
-            }
-          },
-          "tooltip": [
-            {"field": "properties.NAME", "type": "nominal", "title": "Country"},
-            {
-              "field": "GDP (in billion)",
-              "type": "quantitative",
-              "format": ".2f",
-              "title": "GDP (in billions of USD)"
-            }
-          ]
-        }
+            "format": ".2f",
+            "title": "GDP (in billions of USD)"
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/jesslaa/FIT3179/main/vis2/data/billionaires2014.csv"
       },
-      {
-        "transform": [
-          {
-            "lookup": "properties.NAME",
-            "from": {
-              "data": {
-                "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/3_choropleth_map/data/countryInfo.csv"
-              },
-              "key": "name",
-              "fields": ["latitude", "longitude"]
-            }
-          }
-        ],
-        "mark": {"type": "text"},
-        "encoding": {
-          "longitude": {"field": "longitude", "type": "quantitative"},
-          "latitude": {"field": "latitude", "type": "quantitative"},
-          "text": {"field": "properties.NAME", "type": "nominal"},
-          "opacity": {
-            "condition": {
-              "test": "datum['properties.NAME'] == 'China' || datum['properties.NAME'] == 'Brazil' || datum['properties.NAME'] == 'South Africa' || datum['properties.NAME'] == 'Australia' || datum['properties.NAME'] == 'United Kingdom' ||  datum['properties.NAME'] == 'United States of America'",
-              "value": 1
+      "transform": [
+        {
+          "aggregate": [{"op": "count", "as": "num_billionaires"}],
+          "groupby": ["Location Citizenship"]
+        },
+        {
+          "lookup": "Location Citizenship",
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/jesslaa/FIT3179/main/vis2/data/countryInfo.csv"
             },
-            "value": 0
+            "key": "name",
+            "fields": ["latitude", "longitude"]
           }
+        }
+      ],
+      "mark": "circle",
+      "encoding": {
+        "longitude": {"field": "longitude", "type": "quantitative"},
+        "latitude": {"field": "latitude", "type": "quantitative"},
+        "size": {
+          "field": "num_billionaires",
+          "type": "quantitative",
+          "title": "Number of Billionaires",
+          "scale": {
+            "range": [10, 2000]
+          }
+        },
+        "tooltip": [
+          {"field": "Location Citizenship", "type": "nominal", "title": "Country"},
+          {"field": "num_billionaires", "type": "quantitative", "title": "No. of Billionaires"}
+        ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "lookup": "properties.NAME",
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/3_choropleth_map/data/countryInfo.csv"
+            },
+            "key": "name",
+            "fields": ["latitude", "longitude"]
+          }
+        }
+      ],
+      "mark": {"type": "text"},
+      "encoding": {
+        "longitude": {"field": "longitude", "type": "quantitative"},
+        "latitude": {"field": "latitude", "type": "quantitative"},
+        "text": {"field": "properties.NAME", "type": "nominal"},
+        "opacity": {
+          "condition": {
+            "test": "datum['properties.NAME'] == 'China' || datum['properties.NAME'] == 'Brazil' || datum['properties.NAME'] == 'South Africa' || datum['properties.NAME'] == 'Australia' || datum['properties.NAME'] == 'United Kingdom' ||  datum['properties.NAME'] == 'United States of America'",
+            "value": 1
+          },
+          "value": 0
         }
       }
-    ],
-    "config": {}
-  }
+    }
+  ],
+  "config": {}
+}
